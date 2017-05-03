@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper dbHelper = new DBHelper(this);
     private String cod_pais = "ARG";
     private String[] cod_series = new String[]{"SH.DYN.AIDS","SH.STA.DIAB.ZS"};
+    private String[] anios = new String[]{"yr2007","yr2008","yr2009","yr2010","yr2011","yr2012"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series);
+                ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
                 ArrayList<String> fila = resultado.get(0);
                 Toast.makeText(MainActivity.this, fila.get(0)+" "+fila.get(1)+" "+fila.get(2)+" "+fila.get(3)+" "+fila.get(4)+" "+fila.get(5)+" "+fila.get(6), Toast.LENGTH_SHORT).show();
 

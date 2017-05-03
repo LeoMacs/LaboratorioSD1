@@ -30,24 +30,21 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
-    public  ArrayList<ArrayList<String>> ConsultarBD(String cod_pais, String[] cod_series){
+    public  ArrayList<ArrayList<String>> ConsultarBD(String cod_pais, String[] cod_series, String[] anios){
         ArrayList<ArrayList<String>> lsresultadoTotal = new ArrayList<>();
-
-
+        int cant_cols = cod_series.length+anios.length;
+        System.out.println("CANT_COLS:"+cant_cols);
         SQLiteDatabase db = this.getWritableDatabase();
-        String consulta ="SELECT * FROM "+ TABLE_NAME+" WHERE "+COUNTRY_CODE+" = '"+cod_pais+"' AND "+SERIES_CODE+" = '"+cod_series[0]+"';";
         ArrayList<String> lsresult_unit;
-
-        for (int i = 1 ; i <cod_series.length;i++){
-            consulta = consulta +" OR "+SERIES_CODE+" = "+cod_series[i];
-        }
+        String consulta = Consultar_x_años(cod_pais,cod_series,anios);
+        System.out.println(consulta);
 
         if(db!= null){
             Cursor c = db.rawQuery(consulta,null);
             if(c.moveToFirst()){
                 do{
                     lsresult_unit = new ArrayList<>();
-                    for(int j =0 ;j<CANT_COLS;j++){
+                    for(int j =0 ;j<cant_cols;j++){
                         lsresult_unit.add(c.getString(j));
                     }
                     lsresultadoTotal.add(lsresult_unit);

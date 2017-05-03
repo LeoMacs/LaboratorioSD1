@@ -59,9 +59,19 @@ public class DBContract {
                 INF_2013 +" REAL, "+
                 INF_2014 +" REAL, "+
                 INF_2015 +" REAL );";
+
+        public static final String Consultar_x_años(String cod_pais, String[] cod_series, String[] anios){
+            String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
+            for (int i=0 ; i<anios.length;i++){
+                consulta = consulta+", "+anios[i];
+            }
+            consulta = consulta+" FROM "+ TABLE_NAME+" WHERE "+COUNTRY_CODE+" = '"+cod_pais+"' AND "+SERIES_CODE+" = '"+cod_series[0]+"' ";
+            for (int i = 1 ; i <cod_series.length;i++){
+                consulta = consulta +" OR "+SERIES_CODE+" = '"+cod_series[i]+"' ";
+            }
+            return consulta;
+        }
     }
 
-    public static final String Consultar_x_años(String cod_pais, String[] cod_series, String){
 
-    }
 }
