@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private String cod_pais = "ARG";
     private String[] cod_series = new String[]{"SH.DYN.AIDS","SH.STA.DIAB.ZS"};
     private String[] anios = new String[]{"yr2007","yr2008","yr2009","yr2010","yr2011","yr2012"};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        try {
+            dbHelper.createDataBase();
+            dbHelper.openDataBase();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 

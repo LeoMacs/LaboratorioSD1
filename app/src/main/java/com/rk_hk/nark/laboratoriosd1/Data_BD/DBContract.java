@@ -14,6 +14,7 @@ public class DBContract {
          * Nombre de la BASE_DE_DATOS
          */
         public static final String DB_NAME = "laboratorio1.db";
+        public static final String DB_PATH = "/data/data/com.rk_hk.nark.laboratoriosd1/databases/";
         public static final int DB_SCHEMA_VERSION = 1;
 
         /**
