@@ -6,6 +6,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.rk_hk.nark.laboratoriosd1.MainActivity;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,100 +24,84 @@ public class DBHelper extends SQLiteOpenHelper{
 
     private final Context MY_CONTEXT;
     private SQLiteDatabase MY_DATA_BASES;
+    private static DBHelper DBInstance = null;
 
 
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_SCHEMA_VERSION);
         MY_CONTEXT=context;
+        try{
+            crearDataBase();
+            openDataBases();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
+
+    public static DBHelper instance(Context myContext) {
+
+        if (DBInstance == null) {
+            DBInstance = new DBHelper(myContext);
+        }
+        return DBInstance;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //db.execSQL(QUERY_CREAR_TABLA);
+
+    }
+
+    public void crearDataBase() throws IOException{
+        boolean dbExists = checkDataBase();
+        SQLiteDatabase db_read = null;
+
+        if (dbExists){
+
+        }else{
+            db_read = this.getReadableDatabase();
+            db_read.close();
+            try{
+                copyDataBase();
+            }catch (IOException e){
+                throw new Error("Ptm fallo otra vez");
+            }
+        }
+    }
+
+    public void copyDataBase() throws  IOException{
+        try {
+            InputStream myInputStream = MY_CONTEXT.getAssets().open(DB_NAME);
+            String outFileName = DB_PATH+DB_NAME;
+            OutputStream myOutputStream = new FileOutputStream(outFileName);
+            byte[] buffer =  new byte[1024];
+            int length;
+            while ((length=myInputStream.read(buffer))>0){
+                myOutputStream.write(buffer,0,length);
+            }
+
+            myOutputStream.flush();
+            myOutputStream.close();
+            myInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openDataBases(){
+        String myPath = DB_PATH+DB_NAME;
+        MY_DATA_BASES = SQLiteDatabase.openDatabase(myPath, null,SQLiteDatabase.OPEN_READWRITE);
+    }
+
+    public boolean checkDataBase(){
+        File dbFile = new File(DB_PATH + DB_NAME);
+        return dbFile.exists();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    }
-
-    public void createDataBase() throws IOException {
-
-        boolean dbExist = checkDataBase();
-
-        if (dbExist) {
-            // Si existe, no haemos nada!
-        } else {
-            // Llamando a este método se crea la base de datos vacía en la ruta
-            // por defecto del sistema de nuestra aplicación por lo que
-            // podremos sobreescribirla con nuestra base de datos.
-            this.getReadableDatabase();
-
-            try {
-
-                copyDataBase();
-
-            } catch (IOException e) {
-
-                throw new Error("Error copiando database");
-            }
-        }
-    }
-
-    private void copyDataBase() throws IOException {
-
-        OutputStream databaseOutputStream = new FileOutputStream("" + DB_PATH + DB_NAME);
-        InputStream databaseInputStream;
-
-        byte[] buffer = new byte[1024];
-        int length;
-
-        databaseInputStream = MY_CONTEXT.getAssets().open("MiPrimeraBD");
-        while ((length = databaseInputStream.read(buffer)) > 0) {
-            databaseOutputStream.write(buffer);
-        }
-
-        databaseInputStream.close();
-        databaseOutputStream.flush();
-        databaseOutputStream.close();
-    }
-
-    private boolean checkDataBase() {
-
-        SQLiteDatabase checkDB = null;
-
-        try {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-
-        } catch (SQLiteException e) {
-            // Base de datos no creada todavia
-        }
-
-        if (checkDB != null) {
-
-            checkDB.close();
-        }
-
-        return checkDB != null ? true : false;
-
-    }
-
-    public void openDataBase() throws SQLException {
-
-        // Open the database
-        String myPath = DB_PATH + DB_NAME;
-        MY_DATA_BASES = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-    }
-
-    @Override
-    public synchronized void close() {
-
-        if (MY_DATA_BASES != null)
-            MY_DATA_BASES.close();
-
-        super.close();
     }
 
     public  ArrayList<ArrayList<String>> ConsultarBD(String cod_pais, String[] cod_series, String[] anios){

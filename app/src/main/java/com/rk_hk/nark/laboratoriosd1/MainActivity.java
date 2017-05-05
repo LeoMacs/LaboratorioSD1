@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    private DBHelper dbHelper = new DBHelper(this);
+    private DBHelper dbHelper ;
     private String cod_pais = "ARG";
     private String[] cod_series = new String[]{"SH.DYN.AIDS","SH.STA.DIAB.ZS"};
     private String[] anios = new String[]{"yr2007","yr2008","yr2009","yr2010","yr2011","yr2012"};
@@ -32,15 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        try {
-            dbHelper.createDataBase();
-            dbHelper.openDataBase();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        dbHelper= DBHelper.instance(this);
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
