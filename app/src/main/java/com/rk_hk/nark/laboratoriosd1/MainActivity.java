@@ -11,10 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.data.PieEntry;
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
