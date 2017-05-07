@@ -72,6 +72,10 @@ public class DBContract {
             }
             return consulta;
         }
+
+        public static final void HolaPerro(){
+            System.out.println("Trabajen Amiguitos");
+        }
     }
 
 
