@@ -8,4 +8,13 @@ public class PruebaDePush {
     public static final void mensajito(){
         System.out.println("Veamos si este sube a la nube");
     }
+
+
+    public static final void pruebape(){
+        System.out.println("Esta mrd esperemos que se vea en la nube");
+    }
+
+    public static void quienesgay(String nombre){
+        System.out.println("El es gay :" + nombre);
+    }
 }
