@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:weightSum="6"
+        android:weightSum="9"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
-                android:text="SERIE:"/>
+                android:text="INDICADOR:"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,12 +45,7 @@
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
                 android:text="PAÍS :"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:text="AÑO  :"/>
+
 
         </LinearLayout>
 
@@ -58,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:layout_weight="4"
+            android:layout_weight="7"
             android:orientation="vertical">
 
             <Spinner
@@ -76,14 +71,42 @@
                 android:id="@+id/spPais"
                 >
             </Spinner>
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:id="@+id/spAño"
-                >
-            </Spinner>
+
+
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="AÑO(desde):"/>
+        <Spinner
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/spAñod"
+            >
+        </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:text="AÑO(hasta):"/>
+        <Spinner
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/spAñoh"
+            >
+        </Spinner>
     </LinearLayout>
 
     <Button
