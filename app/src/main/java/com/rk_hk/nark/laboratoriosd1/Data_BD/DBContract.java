@@ -2,6 +2,9 @@ package com.rk_hk.nark.laboratoriosd1.Data_BD;
 
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by nark_ on 02/05/2017.
  */
@@ -43,6 +46,47 @@ public class DBContract {
         public static final String INF_2015 = "yr2015";
 
         /**
+         * Codigos de Paises
+         */
+
+        public static final String FIND_COD_PAIS(String op) {
+            switch (op) {
+                case "ARG" : return  "Argentina";
+                case "BRA" : return  "Brasil";
+                case "BOL" : return  "Bolivia";
+                case "CHL" : return  "Chile";
+                case "COL" : return  "Colombia";
+                case "ECU" : return  "Ecuador";
+                case "PER" : return  "Perù";
+                case "PRY" : return  "Paraguay";
+                case "PAN" : return  "Panamà";
+                case "URY" : return  "Uruguay";
+                case "VEN" : return  "Venezuela";
+                default: return "";
+            }
+        }
+        /**
+         * Codigo de Series
+         */
+
+        public static final ArrayList<String> LS_COD_SERIES =new ArrayList<>(Arrays.asList("SH.DYN.AIDS", "SP.DYN.SMAM.MA", "SP.DYN.SMAM.FE", "SH.STA.DIAB.ZS", "SH.MED.BEDS.ZS", "SH.TBS.INCD", "SP.DYN.LE00.IN", "SH.MED.PHYS.ZS"));
+
+
+        public static final String FIND_COD_SERIE(String op){
+            switch (op){
+                case "SH.DYN.AIDS": return "Personas mayores de 15 años, viviendo con VIH";
+                case "SP.DYN.SMAM.MA": return "Edad promedio de hombres, en su primer matrimonio";
+                case "SP.DYN.SMAM.FE": return "Edad promedio de mujeres, en su primer matrimonio";
+                case "SH.STA.DIAB.ZS": return "Prevalencia de diabetes (%poblacion entre 25 y 79 años";
+                case "SH.MED.BEDS.ZS": return "Camas de hospital (por cada 1000 personas)";
+                case "SH.TBS.INCD": return "Incidencia de TBC (por cada 1000 personas)";
+                case "SP.DYN.LE00.IN": return "Expectativa de vida al nacer (en años)";
+                case "SH.MED.PHYS.ZS": return "Doctores (por cada 1000 personas)";
+                default: return "";
+            }
+        }
+
+        /**
          * Consultas preparadas
          */
 
@@ -73,9 +117,6 @@ public class DBContract {
             return consulta;
         }
 
-        public static final void HolaPerro(){
-            System.out.println("Trabajen Amiguitos");
-        }
     }
 
 

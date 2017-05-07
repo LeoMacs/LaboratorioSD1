@@ -1,9 +1,7 @@
 package com.rk_hk.nark.laboratoriosd1;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,19 +42,20 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
+                /*ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
                 ArrayList<String> fila = resultado.get(0);
                 Toast.makeText(MainActivity.this, fila.get(0)+" "+fila.get(1)+" "+fila.get(2)+" "+fila.get(3)+" "+fila.get(4)+" "+fila.get(5)+" "+fila.get(6), Toast.LENGTH_SHORT).show();
-
+*/
                 /** Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();*/
+
+                setupPieChart();
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
         ArrayList<String> fila = resultado.get(0);
         List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i=0; i < resultado.size(); i++) {
+        for (int i=0; i < fila.size(); i++) {
             pieEntries.add( new PieEntry(i, fila.get(i) ) );
         }
 
