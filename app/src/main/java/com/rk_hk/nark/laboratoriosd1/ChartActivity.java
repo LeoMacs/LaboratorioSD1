@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -21,10 +22,13 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 import static com.rk_hk.nark.laboratoriosd1.Consultas_Activity.years_select;
+import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.FIND_COD_SERIE;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.RESULTADO_CONSULTA;
 
 public class ChartActivity extends AppCompatActivity {
@@ -41,6 +45,8 @@ public class ChartActivity extends AppCompatActivity {
     BarDataSet Bardataset ;
     BarData BARDATA ;
 
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,9 @@ public class ChartActivity extends AppCompatActivity {
 
         resultConsulta = RESULTADO_CONSULTA;
         int groupCount = years_select.length;
+
+        textView = (TextView) findViewById(R.id.id_cc_titulo);
+        textView.setText(FIND_COD_SERIE(resultConsulta.get(0).get(1)));
 
         chart = (BarChart) findViewById(R.id.myBarChart);
         /*
@@ -120,7 +129,12 @@ public class ChartActivity extends AppCompatActivity {
             ArrayList<BarEntry> valxPais = new ArrayList<>();
             for (int i = 2; i < xColumna.size(); i++) {
                // BarEntry val_fecha = new BarEntry((Float.parseFloat(xColumna.get(i))),k);
-                valxPais.add( new BarEntry(k,(Float.parseFloat(xColumna.get(i)))));
+                if(xColumna.get(i)=="0"){
+                    valxPais.add( new BarEntry(k,0.0f));
+                }else{
+                    valxPais.add( new BarEntry(k,convertirCadenaFloat(xColumna.get(i))));
+                }
+
                 k++;
             }
             BarDataSet dataxPais = new BarDataSet(valxPais, xColumna.get(0));
@@ -159,5 +173,10 @@ public class ChartActivity extends AppCompatActivity {
         int G = rand.nextInt(256);
         int B= rand.nextInt(256);
        return  Color.rgb(R,G,B);
+    }
+
+    public float convertirCadenaFloat(String cadena){
+        cadena = cadena.replace(',','.');
+        return Float.parseFloat(cadena);
     }
 }
