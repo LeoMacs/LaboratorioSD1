@@ -49,6 +49,10 @@ public class DBContract {
          * Codigos de Paises
          */
 
+        public static final String[] LSCOD_ANIO = {"yr2005", "yr2006", "yr2007", "yr2008", "yr2009", "yr2010", "yr2011", "yr2012","yr2013", "yr2014", "yr2015"};
+
+        public static final String[] lsCodPais = {"ARG", "BRA", "BOL", "CHL", "COL", "ECU", "PER", "PRY", "PAN", "URY", "VEN"};
+
         public static final String FIND_COD_PAIS(String op) {
             switch (op) {
                 case "ARG" : return  "Argentina";
@@ -70,6 +74,14 @@ public class DBContract {
          */
 
         public static final ArrayList<String> LS_COD_SERIES =new ArrayList<>(Arrays.asList("SH.DYN.AIDS", "SP.DYN.SMAM.MA", "SP.DYN.SMAM.FE", "SH.STA.DIAB.ZS", "SH.MED.BEDS.ZS", "SH.TBS.INCD", "SP.DYN.LE00.IN", "SH.MED.PHYS.ZS"));
+        public static final ArrayList<String> LS_CONT_SERIES =new ArrayList<>(Arrays.asList("Personas mayores de 15 años, viviendo con VIH"
+                , "Edad promedio de hombres, en su primer matrimonio"
+                , "Edad promedio de mujeres, en su primer matrimonio"
+                , "Prevalencia de diabetes (%poblacion entre 25 y 79 años"
+                , "Camas de hospital (por cada 1000 personas)"
+                , "Incidencia de TBC (por cada 1000 personas)"
+                , "Expectativa de vida al nacer (en años)"
+                , "Doctores (por cada 1000 personas)"));
 
 
         public static final String FIND_COD_SERIE(String op){
@@ -131,6 +143,7 @@ public class DBContract {
                 INF_2007 +" REAL, "+
                 INF_2008 +" REAL, "+
                 INF_2009 +" REAL, "+
+                INF_2010 +" REAL, "+
                 INF_2011 +" REAL, "+
                 INF_2012 +" REAL, "+
                 INF_2013 +" REAL, "+
@@ -138,7 +151,7 @@ public class DBContract {
                 INF_2015 +" REAL );";
 
 
-
+/*
         public static final String Consultar_x_años(String cod_pais, String[] cod_series, String[] anios){
             String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
             for (int i=0 ; i<anios.length;i++){
@@ -148,6 +161,19 @@ public class DBContract {
             for (int i = 1 ; i <cod_series.length;i++){
                 consulta = consulta +" OR "+SERIES_CODE+" = '"+cod_series[i]+"' ";
             }
+            return consulta;
+        }
+*/
+        public static final String Consultar_x_años_serie(ArrayList<String> cod_pais, String cod_series, String[] anios){
+            String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
+            for (int i=0 ; i<anios.length;i++){
+                consulta = consulta+", "+anios[i];
+            }
+            consulta = consulta+" FROM "+ TABLE_NAME+" WHERE "+SERIES_CODE+" = '"+cod_series+"' AND "+COUNTRY_CODE+" = '"+cod_pais.get(0)+"' ";
+            for (int i = 1 ; i <cod_pais.size();i++){
+                consulta = consulta +" OR "+COUNTRY_CODE+" = '"+cod_pais.get(i)+"' ";
+            }
+            System.out.println("DBContract -> "+consulta);
             return consulta;
         }
 

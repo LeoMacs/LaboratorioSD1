@@ -1,5 +1,6 @@
 package com.rk_hk.nark.laboratoriosd1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +17,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    private DBHelper dbHelper ;
-    private String cod_pais = "ARG";
-    private String[] cod_series = new String[]{"SH.DYN.AIDS","SH.STA.DIAB.ZS"};
-    private String[] anios = new String[]{"yr2007","yr2008","yr2009","yr2010","yr2011","yr2012"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +25,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbHelper= DBHelper.instance(this);
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
-                ArrayList<String> fila = resultado.get(0);
-                Toast.makeText(MainActivity.this, fila.get(0)+" "+fila.get(1)+" "+fila.get(2)+" "+fila.get(3)+" "+fila.get(4)+" "+fila.get(5)+" "+fila.get(6), Toast.LENGTH_SHORT).show();
-                ArrayList<String> fila2 = resultado.get(1);
-                Toast.makeText(MainActivity.this, fila2.get(0)+" "+fila2.get(1)+" "+fila2.get(2)+" "+fila2.get(3)+" "+fila2.get(4)+" "+fila2.get(5)+" "+fila2.get(6), Toast.LENGTH_SHORT).show();
-
-                /** Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();*/
-
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,Consultas_Activity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

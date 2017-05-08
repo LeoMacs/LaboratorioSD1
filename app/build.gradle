@@ -31,5 +31,9 @@ dependencies {
 }
 
 dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.appyvet:materialrangebar:1.3'
 }

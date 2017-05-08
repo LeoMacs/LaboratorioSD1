@@ -23,6 +23,10 @@
             android:name=".ChartActivity"
             android:label="@string/title_activity_chart"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Consultas_Activity"
+            android:label="@string/title_activity_consulta"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

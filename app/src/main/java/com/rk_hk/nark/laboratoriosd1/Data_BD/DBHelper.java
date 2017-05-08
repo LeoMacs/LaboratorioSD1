@@ -103,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
+/*
     public  ArrayList<ArrayList<String>> ConsultarBD(String cod_pais, String[] cod_series, String[] anios){
         ArrayList<ArrayList<String>> lsresultadoTotal = new ArrayList<>();
         int cant_cols = cod_series.length+anios.length;
@@ -121,6 +121,34 @@ public class DBHelper extends SQLiteOpenHelper{
                     for(int j =0 ;j<cant_cols;j++){
                         lsresult_unit.add(c.getString(j));
                     }
+                    lsresultadoTotal.add(lsresult_unit);
+                }while(c.moveToNext());
+            }
+        }
+        return lsresultadoTotal;
+    }
+
+    */
+    public  ArrayList<ArrayList<String>> ConsultarBD_Series(ArrayList<String> cod_pais, String cod_series, String[] anios){
+        System.out.println("Hola Llegamos a CONSULTA por SERIEAs");
+        ArrayList<ArrayList<String>> lsresultadoTotal = new ArrayList<>();
+        int cant_cols = cod_pais.size()+anios.length-1;
+        System.out.println("CANT_COLS:"+cant_cols);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> lsresult_unit;
+        String consulta = Consultar_x_años_serie(cod_pais,cod_series,anios);
+        System.out.println(consulta);
+
+        if(db!= null){
+            Cursor c = db.rawQuery(consulta,null);
+            if(c.moveToFirst()){
+                do{
+                    lsresult_unit = new ArrayList<>();
+                    for(int j =0 ;j<cant_cols;j++){
+                        lsresult_unit.add(c.getString(j));
+                        System.out.println("RESULTADO xFILA :"+c.getString(j));
+                    }
+                    System.out.println("\n");
                     lsresultadoTotal.add(lsresult_unit);
                 }while(c.moveToNext());
             }
