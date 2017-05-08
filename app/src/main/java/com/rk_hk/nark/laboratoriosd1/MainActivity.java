@@ -9,15 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
+                ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
                 ArrayList<String> fila = resultado.get(0);
                 Toast.makeText(MainActivity.this, fila.get(0)+" "+fila.get(1)+" "+fila.get(2)+" "+fila.get(3)+" "+fila.get(4)+" "+fila.get(5)+" "+fila.get(6), Toast.LENGTH_SHORT).show();
-*/
+                ArrayList<String> fila2 = resultado.get(1);
+                Toast.makeText(MainActivity.this, fila2.get(0)+" "+fila2.get(1)+" "+fila2.get(2)+" "+fila2.get(3)+" "+fila2.get(4)+" "+fila2.get(5)+" "+fila2.get(6), Toast.LENGTH_SHORT).show();
+
                 /** Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();*/
 
-                setupPieChart();
             }
         });
     }
@@ -75,23 +70,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupPieChart () {
-        ArrayList<ArrayList<String>> resultado = dbHelper.ConsultarBD(cod_pais,cod_series,anios);
-        ArrayList<String> fila = resultado.get(0);
-        List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i=0; i < fila.size(); i++) {
-            pieEntries.add( new PieEntry(i, fila.get(i) ) );
-        }
 
-        PieDataSet dataSet = new PieDataSet(pieEntries, "SD");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        PieData data = new PieData(dataSet);
-        //
-        PieChart chart= (PieChart) (findViewById(R.id.chart));
-        chart.setData(data);
-        chart.animateY(1000);
-        chart.invalidate();
-
-    }
 
 }

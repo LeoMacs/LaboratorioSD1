@@ -127,5 +127,4 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         return lsresultadoTotal;
     }
-
 }

@@ -18,7 +18,7 @@ public class DBContract {
          */
         public static final String DB_NAME = "laboratorio1.db";
         public static final String DB_PATH = "/data/data/com.rk_hk.nark.laboratoriosd1/databases/";
-        public static final int DB_SCHEMA_VERSION = 1;
+        public static int DB_SCHEMA_VERSION = 1;
 
         /**
          * Nombre de la TABLA
@@ -90,6 +90,38 @@ public class DBContract {
          * Consultas preparadas
          */
 
+        public static ArrayList<String> LS_ANIOS = new ArrayList<>();
+        public static ArrayList<String> LS_SERIES;
+        public static ArrayList<String> LS_PAISES;
+
+        public static String getDbName() {
+            return DB_NAME;
+        }
+
+        public static ArrayList<String> getLsAnios() {
+            return LS_ANIOS;
+        }
+
+        public static void setLsAnios(ArrayList<String> lsAnios) {
+            LS_ANIOS = lsAnios;
+        }
+
+        public static ArrayList<String> getLsSeries() {
+            return LS_SERIES;
+        }
+
+        public static void setLsSeries(ArrayList<String> lsSeries) {
+            LS_SERIES = lsSeries;
+        }
+
+        public static ArrayList<String> getLsPaises() {
+            return LS_PAISES;
+        }
+
+        public static void setLsPaises(ArrayList<String> lsPaises) {
+            LS_PAISES = lsPaises;
+        }
+
         public static final String QUERY_CREAR_TABLA= "CREATE TABLE "+TABLE_NAME+" (" +
                 ID_TABLA +" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "+
                 SERIES_CODE +" TEXT NOT NULL,"+
@@ -104,6 +136,8 @@ public class DBContract {
                 INF_2013 +" REAL, "+
                 INF_2014 +" REAL, "+
                 INF_2015 +" REAL );";
+
+
 
         public static final String Consultar_x_años(String cod_pais, String[] cod_series, String[] anios){
             String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
