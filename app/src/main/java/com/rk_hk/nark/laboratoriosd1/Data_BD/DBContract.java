@@ -151,28 +151,16 @@ public class DBContract {
                 INF_2015 +" REAL );";
 
 
-/*
-        public static final String Consultar_x_años(String cod_pais, String[] cod_series, String[] anios){
-            String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
-            for (int i=0 ; i<anios.length;i++){
-                consulta = consulta+", "+anios[i];
-            }
-            consulta = consulta+" FROM "+ TABLE_NAME+" WHERE "+COUNTRY_CODE+" = '"+cod_pais+"' AND "+SERIES_CODE+" = '"+cod_series[0]+"' ";
-            for (int i = 1 ; i <cod_series.length;i++){
-                consulta = consulta +" OR "+SERIES_CODE+" = '"+cod_series[i]+"' ";
-            }
-            return consulta;
-        }
-*/
         public static final String Consultar_x_años_serie(ArrayList<String> cod_pais, String cod_series, String[] anios){
             String consulta ="SELECT "+COUNTRY_CODE+", "+ SERIES_CODE;
             for (int i=0 ; i<anios.length;i++){
                 consulta = consulta+", "+anios[i];
             }
-            consulta = consulta+" FROM "+ TABLE_NAME+" WHERE "+SERIES_CODE+" = '"+cod_series+"' AND "+COUNTRY_CODE+" = '"+cod_pais.get(0)+"' ";
+            consulta = consulta+" FROM "+ TABLE_NAME+" WHERE "+SERIES_CODE+" = '"+cod_series+"' AND "+COUNTRY_CODE+" IN ('"+cod_pais.get(0)+"' ";
             for (int i = 1 ; i <cod_pais.size();i++){
-                consulta = consulta +" OR "+COUNTRY_CODE+" = '"+cod_pais.get(i)+"' ";
+                consulta = consulta +",'"+cod_pais.get(i)+"' ";
             }
+            consulta = consulta + ")";
             System.out.println("DBContract -> "+consulta);
             return consulta;
         }

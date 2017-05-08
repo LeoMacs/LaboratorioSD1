@@ -29,10 +29,6 @@ import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.L
 public class ChartActivity extends AppCompatActivity {
 
 
-    private String cod_pais = "ARG";
-    private String[] cod_series = new String[]{"SH.DYN.AIDS","SH.STA.DIAB.ZS"};
-    private String[] anios = new String[]{"yr2007","yr2008","yr2009","yr2010","yr2011","yr2012"};
-
     private ArrayList<String> resultConsulta;
 
     private BarChart chart;

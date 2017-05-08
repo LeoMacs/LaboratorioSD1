@@ -51,14 +51,14 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
         spinner.setOnItemSelectedListener(this);
 
         arrCheck[0] = (CheckBox) findViewById(R.id.id_cv_arg);
-        arrCheck[1] = (CheckBox) findViewById(R.id.id_cv_bol);
-        arrCheck[2] = (CheckBox) findViewById(R.id.id_cv_bra);
+        arrCheck[1] = (CheckBox) findViewById(R.id.id_cv_bra);
+        arrCheck[2] = (CheckBox) findViewById(R.id.id_cv_bol);
         arrCheck[3] = (CheckBox) findViewById(R.id.id_cv_chi);
         arrCheck[4] = (CheckBox) findViewById(R.id.id_cv_col);
         arrCheck[5] = (CheckBox) findViewById(R.id.id_cv_ecu);
-        arrCheck[6] = (CheckBox) findViewById(R.id.id_cv_pan);
-        arrCheck[7] = (CheckBox) findViewById(R.id.id_cv_per);
-        arrCheck[8] = (CheckBox) findViewById(R.id.id_cv_par);
+        arrCheck[6] = (CheckBox) findViewById(R.id.id_cv_per);
+        arrCheck[7] = (CheckBox) findViewById(R.id.id_cv_par);
+        arrCheck[8] = (CheckBox) findViewById(R.id.id_cv_pan);
         arrCheck[9] = (CheckBox) findViewById(R.id.id_cv_uru);
         arrCheck[10] = (CheckBox) findViewById(R.id.id_cv_ven);
 
