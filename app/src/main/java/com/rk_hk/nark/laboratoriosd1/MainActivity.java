@@ -8,33 +8,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-
+    Button btinicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        btinicio=(Button)findViewById(R.id.btinicio);
+        btinicio.setOnClickListener(this);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,Consultas_Activity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     @Override
@@ -59,5 +52,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.btinicio){
+            Intent intent = new Intent(MainActivity.this,Consultas_Activity.class);
+            startActivity(intent);
+        }
+    }
 }
