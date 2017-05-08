@@ -37,8 +37,8 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
     public static ArrayList<String>  country_select;
     public static String[]  years_select;
     //public static ArrayList<ArrayList<String>> lsResult_Consulta;
-    private int limInf, limSup;
-    private int tamArrayYears;
+    private int limInf = 0, limSup=10;
+    private int tamArrayYears=(limSup - limInf)+1;
 
     private Button imgBtnChart;
 

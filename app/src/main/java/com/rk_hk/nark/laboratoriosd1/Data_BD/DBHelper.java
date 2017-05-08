@@ -132,7 +132,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public  ArrayList<ArrayList<String>> ConsultarBD_Series(ArrayList<String> cod_pais, String cod_series, String[] anios){
         System.out.println("Hola Llegamos a CONSULTA por SERIEAs");
         ArrayList<ArrayList<String>> lsresultadoTotal = new ArrayList<>();
-        int cant_cols = cod_pais.size()+anios.length-1;
+        int cant_cols = 2+anios.length;
         System.out.println("CANT_COLS:"+cant_cols);
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<String> lsresult_unit;

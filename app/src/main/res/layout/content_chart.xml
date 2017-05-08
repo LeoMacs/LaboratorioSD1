@@ -18,9 +18,12 @@
             android:id="@+id/id_cc_titulo"
             android:text="Hola Amiguitos"/>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="20px"
         android:layout_gravity="center">
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/myBarChart"
