@@ -102,37 +102,11 @@ public class DBContract {
          * Consultas preparadas
          */
 
-        public static ArrayList<String> LS_ANIOS = new ArrayList<>();
-        public static ArrayList<String> LS_SERIES;
-        public static ArrayList<String> LS_PAISES;
+        public static String[] LS_ANIOS_SELECT ;
+        public static String LS_SERIES_SELECT;
+        public static ArrayList<String> LS_PAISES_SELECT;
 
-        public static String getDbName() {
-            return DB_NAME;
-        }
-
-        public static ArrayList<String> getLsAnios() {
-            return LS_ANIOS;
-        }
-
-        public static void setLsAnios(ArrayList<String> lsAnios) {
-            LS_ANIOS = lsAnios;
-        }
-
-        public static ArrayList<String> getLsSeries() {
-            return LS_SERIES;
-        }
-
-        public static void setLsSeries(ArrayList<String> lsSeries) {
-            LS_SERIES = lsSeries;
-        }
-
-        public static ArrayList<String> getLsPaises() {
-            return LS_PAISES;
-        }
-
-        public static void setLsPaises(ArrayList<String> lsPaises) {
-            LS_PAISES = lsPaises;
-        }
+        public static ArrayList<ArrayList<String>> RESULTADO_CONSULTA;
 
         public static final String QUERY_CREAR_TABLA= "CREATE TABLE "+TABLE_NAME+" (" +
                 ID_TABLA +" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "+

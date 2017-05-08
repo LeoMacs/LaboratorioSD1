@@ -1,5 +1,6 @@
 package com.rk_hk.nark.laboratoriosd1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LSCOD_ANIO;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LS_COD_SERIES;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LS_CONT_SERIES;
+import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.RESULTADO_CONSULTA;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.lsCodPais;
 
 public class Consultas_Activity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener{
@@ -31,12 +33,14 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
 
     private DBHelper dbHelper ;
 
-    private String serie_select;
-    private ArrayList<String>  country_select;
-    private String[]  years_select;
-    private ArrayList<ArrayList<String>> lsResult_Consulta;
+    public static String serie_select;
+    public static ArrayList<String>  country_select;
+    public static String[]  years_select;
+    //public static ArrayList<ArrayList<String>> lsResult_Consulta;
     private int limInf, limSup;
     private int tamArrayYears;
+
+    private Button imgBtnChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
         arrCheck[9] = (CheckBox) findViewById(R.id.id_cv_uru);
         arrCheck[10] = (CheckBox) findViewById(R.id.id_cv_ven);
 
+
         rangeBar = (RangeBar) findViewById(R.id.rangebar);
         rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
@@ -74,18 +79,13 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
             }
         });
 
-
-
-
-        /**
-         * Aqui pones tu logica de captura de serie , paises y años.
-         */
-
-
         btConsultar=(Button)findViewById(R.id.btConsultar);
-        lsResult_Consulta = new ArrayList<>();
-
         btConsultar.setOnClickListener(this);
+
+        imgBtnChart = (Button) findViewById(R.id.id_cv_btn_chart);
+        imgBtnChart.setOnClickListener(this);
+        RESULTADO_CONSULTA = new ArrayList<>();
+
 
 
     }
@@ -104,22 +104,40 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
                 /**
                  * Verificamos si todos los paremetros tienen algun valor para proceder hacer la consulta
                  */
-                if(country_select!=null && serie_select!= null && years_select!=null){
-                    lsResult_Consulta=dbHelper.ConsultarBD_Series(country_select,serie_select,years_select);
-                    mostrarConsulta();
+                if(country_select!=null || serie_select!= null || years_select!=null){
+                    if(tamArrayYears==0){
+                        Toast.makeText(this, "Seleccione rango de año valido", Toast.LENGTH_SHORT).show();break;
+                    }else{
+                        RESULTADO_CONSULTA =dbHelper.ConsultarBD_Series(country_select,serie_select,years_select);
+                        mostrarConsulta();
+
+                    }
+
                 }
 
                 else
-                    Toast.makeText(this, "Seleccione los Campos", Toast.LENGTH_SHORT).show();break;
+                    Toast.makeText(this, "Seleccione los Campos", Toast.LENGTH_SHORT).show();
+                break;
+
+            /**
+             * Esto es para el boton del chart
+             */
+            case R.id.id_cv_btn_chart:
+                System.out.println("ENTRAMOS A LA VISTA CHART");
+                Intent intent = new Intent();
+                intent.setClass(Consultas_Activity.this,ChartActivity.class);
+                startActivity(intent);
+                break;
 
         }
     }
 
+
     public void mostrarConsulta(){
         String cadena = "Serie";
         ArrayList<String> fila = new ArrayList<>();
-        for (int i = 0; i < lsResult_Consulta.size();i++){
-            fila=lsResult_Consulta.get(i);
+        for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
+            fila=RESULTADO_CONSULTA.get(i);
             cadena = cadena + "FILA "+i+" : ";
             for (int j = 0 ;j <fila.size();j++ ){
                 cadena = cadena+ " "+fila.get(j);
