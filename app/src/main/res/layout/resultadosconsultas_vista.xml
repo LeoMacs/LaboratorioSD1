@@ -3,12 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.rk_hk.nark.laboratoriosd1.ResultadosConsultas_Activity">
 
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:id="@+id/lvdatos"></ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:background="@color/colorCeleste"
+        android:textColor="@color/colorBlanco"
+        android:text="Resultados de la Consulta"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:textAlignment="center"
+        android:id="@+id/tvdatos"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:text="Volver a consutar"
+        android:textColor="@color/colorBlanco"
+        android:textStyle="bold"
+        android:background="@color/colorCeleste"
+        android:id="@+id/btvolver"/>
 
 </LinearLayout>

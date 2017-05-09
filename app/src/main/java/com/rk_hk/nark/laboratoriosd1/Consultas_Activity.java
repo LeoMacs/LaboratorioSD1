@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.appyvet.rangebar.RangeBar;
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
+import com.rk_hk.nark.laboratoriosd1.Modelo.Resultado;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LSCOD_ANIO;
@@ -110,7 +112,13 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
                     }else{
                         RESULTADO_CONSULTA =dbHelper.ConsultarBD_Series(country_select,serie_select,years_select);
                         mostrarConsulta();
-
+                        //String dato=mostrarResultados();
+                        ArrayList<Resultado> lista=new ArrayList<>();
+                        lista=getResultados();
+                        Intent intent = new Intent(Consultas_Activity.this,ResultadosConsultas_Activity.class);
+                        //intent.putExtra("dato",dato);
+                        intent.putExtra("lista",lista);
+                        startActivity(intent);
                     }
 
                 }
@@ -147,6 +155,9 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
         System.out.println(cadena);
     }
 
+
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         serie_select = LS_COD_SERIES.get(position);
@@ -175,5 +186,48 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
             }
         }
         return paises;
+    }
+
+    ////////////////////////////////
+    /*********devuelve cadena*******/////////
+    public String mostrarResultados(){
+        String cadena = "Serie";
+        ArrayList<String> fila = new ArrayList<>();
+        for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
+            fila=RESULTADO_CONSULTA.get(i);
+            cadena = cadena + "FILA "+i+" : ";
+            for (int j = 0 ;j <fila.size();j++ ){
+                cadena = cadena+ " "+fila.get(j);
+            }
+            cadena = cadena + "\n";
+        }
+
+        return cadena;
+    }
+    //////////////////////////////
+    /*******Devuelve Resultados********////////////
+    public ArrayList<Resultado> getResultados(){
+        String cadena = "Serie";
+        ArrayList <Resultado>listaResultados=new ArrayList<>();
+        ArrayList<String> fila = new ArrayList<>();
+        for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
+            fila=RESULTADO_CONSULTA.get(i);
+            cadena = cadena + "FILA "+i+" : ";
+            ArrayList temp=new ArrayList();
+            ArrayList indices=new ArrayList();
+            String datos[]=new String[2];
+            for (int j = 0 ;j <fila.size();j++ ){
+                cadena = cadena+ " "+fila.get(j);
+                if(j>-1&&j<2){
+                    datos[j]=fila.get(j);
+                }else {
+                    temp.add(fila.get(j));
+                }
+            }
+            indices=temp;
+            cadena = cadena + "\n";
+            listaResultados.add(new Resultado(datos[0],datos[1],indices));
+        }
+        return listaResultados;
     }
 }

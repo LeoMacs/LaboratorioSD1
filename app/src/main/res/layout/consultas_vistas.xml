@@ -11,6 +11,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:background="@color/colorCeleste"
+        android:textColor="@color/colorBlanco"
         android:text=" CONSULTAS DE ESTADISTICAS DE SALUD, NUTRICIÓN Y POBLACIÓN"
         android:textAlignment="center"
         android:textSize="18dp"
@@ -27,7 +29,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:orientation="vertical"
                 android:layout_marginRight="20dp">
@@ -36,11 +38,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="18dp"
+                    android:textColor="@color/colorNegro"
                     android:text="INDICADOR"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/id_cv_spinner"
                     />
             </LinearLayout>
@@ -57,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="18dp"
+                    android:textColor="@color/colorNegro"
                     android:text="PAISES"/>
                 <GridLayout
                     android:layout_width="wrap_content"
@@ -178,6 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textColor="@color/colorNegro"
                     android:textSize="19dp"
                     android:text="AÑOS"/>
 
@@ -185,7 +190,7 @@
                     xmlns:custom="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/rangebar"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="50dp"
                     custom:tickStart="2005"
                     custom:tickInterval="1"
                     custom:tickEnd="2015"/>
@@ -193,19 +198,25 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginLeft="70dp"
                 android:id="@+id/btConsultar"
+                android:textColor="@color/colorBlanco"
+                android:background="@color/colorCeleste"
                 android:text="Consultar"
+                android:textStyle="bold"
                 />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginLeft="70dp"
                 android:id="@+id/id_cv_btn_chart"
+                android:textColor="@color/colorBlanco"
+                android:background="@color/colorCeleste"
+                android:textStyle="bold"
                 android:text="Chart"
                 />
         </LinearLayout>
