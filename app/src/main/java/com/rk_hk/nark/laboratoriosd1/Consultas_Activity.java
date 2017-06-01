@@ -13,12 +13,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.appyvet.rangebar.RangeBar;
+import com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract;
 import com.rk_hk.nark.laboratoriosd1.Data_BD.DBHelper;
 import com.rk_hk.nark.laboratoriosd1.Modelo.Resultado;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.FIND_COD_PAIS;
+import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.FIND_COD_SERIE;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LSCOD_ANIO;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LS_COD_SERIES;
 import static com.rk_hk.nark.laboratoriosd1.Data_BD.DBContract.DataQuerysEntry.LS_CONT_SERIES;
@@ -30,15 +33,16 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
     private Button btConsultar;
     private Spinner spinner;
 
+
     private CheckBox[] arrCheck= new CheckBox[11];
     RangeBar rangeBar ;
 
     private DBHelper dbHelper ;
 
     public static String serie_select;
+    String nombreSerie;
     public static ArrayList<String>  country_select;
     public static String[]  years_select;
-    //public static ArrayList<ArrayList<String>> lsResult_Consulta;
     private int limInf = 0, limSup=10;
     private int tamArrayYears=(limSup - limInf)+1;
 
@@ -112,12 +116,13 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
                     }else{
                         RESULTADO_CONSULTA =dbHelper.ConsultarBD_Series(country_select,serie_select,years_select);
                         mostrarConsulta();
-                        //String dato=mostrarResultados();
+                        String dato=mostrarResultados();
                         ArrayList<Resultado> lista=new ArrayList<>();
                         lista=getResultados();
                         Intent intent = new Intent(Consultas_Activity.this,ResultadosConsultas_Activity.class);
-                        //intent.putExtra("dato",dato);
+                        intent.putExtra("dato",dato);
                         intent.putExtra("lista",lista);
+                        intent.putExtra("nombreserie",nombreSerie);
                         startActivity(intent);
                     }
 
@@ -142,13 +147,17 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
 
 
     public void mostrarConsulta(){
-        String cadena = "Serie";
+        String cadena = "Serie:"+nombreSerie+"\n";
         ArrayList<String> fila = new ArrayList<>();
         for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
             fila=RESULTADO_CONSULTA.get(i);
             cadena = cadena + "FILA "+i+" : ";
             for (int j = 0 ;j <fila.size();j++ ){
+                if(j==2){
+                    cadena=cadena+"(Indices):";
+                }
                 cadena = cadena+ " "+fila.get(j);
+
             }
             cadena = cadena + "\n";
         }
@@ -161,7 +170,8 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         serie_select = LS_COD_SERIES.get(position);
-        Toast.makeText(this, serie_select, Toast.LENGTH_SHORT).show();
+        nombreSerie=FIND_COD_SERIE(serie_select);
+        Toast.makeText(this, nombreSerie, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -191,13 +201,18 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
     ////////////////////////////////
     /*********devuelve cadena*******/////////
     public String mostrarResultados(){
-        String cadena = "Serie";
+
+        String cadena = "Serie:"+nombreSerie+"\n";
         ArrayList<String> fila = new ArrayList<>();
         for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
             fila=RESULTADO_CONSULTA.get(i);
             cadena = cadena + "FILA "+i+" : ";
             for (int j = 0 ;j <fila.size();j++ ){
+                if(j==2){
+                    cadena=cadena+"(Indices):";
+                }
                 cadena = cadena+ " "+fila.get(j);
+
             }
             cadena = cadena + "\n";
         }
@@ -207,26 +222,28 @@ public class Consultas_Activity extends AppCompatActivity implements View.OnClic
     //////////////////////////////
     /*******Devuelve Resultados********////////////
     public ArrayList<Resultado> getResultados(){
+        int año=0;
         String cadena = "Serie";
         ArrayList <Resultado>listaResultados=new ArrayList<>();
         ArrayList<String> fila = new ArrayList<>();
         for (int i = 0; i < RESULTADO_CONSULTA.size();i++){
             fila=RESULTADO_CONSULTA.get(i);
-            cadena = cadena + "FILA "+i+" : ";
-            ArrayList temp=new ArrayList();
+            cadena =  "FILA "+i+" : ";
             ArrayList indices=new ArrayList();
             String datos[]=new String[2];
             for (int j = 0 ;j <fila.size();j++ ){
                 cadena = cadena+ " "+fila.get(j);
                 if(j>-1&&j<2){
                     datos[j]=fila.get(j);
+                     año=2004+limInf;
                 }else {
-                    temp.add(fila.get(j));
+                    año++;
+                    String nombrePais=FIND_COD_PAIS(datos[0]);
+                    listaResultados.add(new Resultado(nombrePais,datos[1],año,fila.get(j)));
                 }
             }
-            indices=temp;
-            cadena = cadena + "\n";
-            listaResultados.add(new Resultado(datos[0],datos[1],indices));
+            System.out.println(cadena);
+
         }
         return listaResultados;
     }
